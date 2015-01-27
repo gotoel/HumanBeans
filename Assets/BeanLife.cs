@@ -204,17 +204,11 @@ public class BeanLife : MonoBehaviour {
 
 	void OnMouseOver()
 	{
-		if (isSelected) {
-			isSelected = true;
-			gameStats.deselect ();
-		}
+
 	}
 	void OnMouseExit()
 	{
-		if (!isSelected) {
-			isSelected = false;
-			gameStats.setSelected (this.gameObject);
-		}
+
 	}
 
 	public void setMother(string s) { motherName = s; }

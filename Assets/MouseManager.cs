@@ -10,7 +10,8 @@ public class MouseManager : MonoBehaviour {
 	Rigidbody2D grabbedObject = null;
 	SpringJoint2D springJoint = null;
 	
-	float velocityRatio = 4f; 	
+	float velocityRatio = 4f; 	// If we aren't using a spring
+
 	public GameObject bean;
 
 	GameObject go;
@@ -64,6 +65,8 @@ public class MouseManager : MonoBehaviour {
 					//dragLine.enabled = true;
 				}
 			}
+			else
+				gameStats.deselect ();
 		}
 		
 		if( Input.GetMouseButtonUp(0) && grabbedObject!=null ) {

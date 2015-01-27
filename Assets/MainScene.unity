@@ -166,10 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e30adacd795d749a3764d7c464123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: -5
-  tick: 0
-  chanceToTurn: 1
-  randomChance: 0
+  age: 0
   isMale: 1
   isAdult: 0
   isDead: 0
@@ -179,10 +176,6 @@ MonoBehaviour:
   femaleBabySprite: {fileID: 21300000, guid: 9274ee2376424424eb0c3b2555d1152a, type: 3}
   maleDeadSprite: {fileID: 21300000, guid: 13452cbc41c99594d8f7936858040964, type: 3}
   femaleDeadSprite: {fileID: 21300000, guid: 5a3f09608f466eb40b70ec51def654d0, type: 3}
-  givenBirth: 0
-  isSelected: 0
-  colliding: 0
-  age: 0
   bean: {fileID: 320506487}
   gameStats: {fileID: 0}
   beanName: noname
@@ -261,7 +254,6 @@ GameObject:
   - 4: {fileID: 464767912}
   - 212: {fileID: 464767911}
   - 60: {fileID: 464767910}
-  - 114: {fileID: 464767913}
   m_Layer: 0
   m_Name: blue_land
   m_TagString: Untagged
@@ -331,18 +323,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!114 &464767913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 464767909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97f5adf612e5aa4bb9f8eb7ed4fb437, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameStats: {fileID: 0}
 --- !u!1 &644261314
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +333,6 @@ GameObject:
   - 4: {fileID: 644261316}
   - 212: {fileID: 644261315}
   - 60: {fileID: 644261317}
-  - 114: {fileID: 644261318}
   m_Layer: 0
   m_Name: blue_land
   m_TagString: Untagged
@@ -423,18 +402,6 @@ PolygonCollider2D:
       - {x: 5.28329182, y: -1.39420462}
       - {x: 5.10337734, y: -1.4147228}
       - {x: 3.28299451, y: -1.67553794}
---- !u!114 &644261318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 644261314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97f5adf612e5aa4bb9f8eb7ed4fb437, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameStats: {fileID: 0}
 --- !u!1 &1737327276
 GameObject:
   m_ObjectHideFlags: 0
