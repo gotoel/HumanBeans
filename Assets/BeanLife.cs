@@ -4,16 +4,17 @@ using System.Collections;
 public class BeanLife : MonoBehaviour {
 	SpriteRenderer sr;
 
-	public float moveSpeed = -5; 
-	public float tick = 0;
-	public float chanceToTurn = 0.01F;
-	public float randomChance;
+	private float moveSpeed = -5; 
+	private float tick = 0;
+	private float chanceToTurn = 0.01F;
+	private float randomChance;
+	private bool givenBirth = false;
+	private bool isSelected = false;
+	private bool colliding = false;
+	public int age;
+
 	public bool isMale = true, isAdult = false, isDead = false;
 	public Sprite maleSprite, femaleSprite, maleBabySprite, femaleBabySprite, maleDeadSprite, femaleDeadSprite;
-	public bool givenBirth = false;
-	public bool isSelected = false;
-	public bool colliding = false;
-	public int age;
 
 	public GameObject bean; 
 	public GameStats gameStats;

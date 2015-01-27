@@ -10,8 +10,7 @@ public class MouseManager : MonoBehaviour {
 	Rigidbody2D grabbedObject = null;
 	SpringJoint2D springJoint = null;
 	
-	float velocityRatio = 4f; 	// If we aren't using a spring
-
+	float velocityRatio = 4f; 	
 	public GameObject bean;
 
 	GameObject go;
