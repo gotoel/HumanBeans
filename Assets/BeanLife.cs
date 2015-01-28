@@ -40,6 +40,8 @@ public class BeanLife : MonoBehaviour {
 	public House house;
 	public bool hasHouse;
 
+    public AudioClip[] audioClip;
+
 
 	//GUIa
 	//Vector2 offset =  Vector2(0, 1.5);
@@ -59,8 +61,8 @@ public class BeanLife : MonoBehaviour {
 		isAdult = false;
 		generateName ();
 
-		// Invoke repeating of the birthday method
-		InvokeRepeating ("birthday", 0, 1);
+		// Invoke repeating of the aging method
+		InvokeRepeating ("aging", 0, 1);
 
 		// initilize sprite renderer so that we can change sprite
 		sr = GetComponent<SpriteRenderer>();
@@ -147,7 +149,7 @@ public class BeanLife : MonoBehaviour {
 	}
 
 
-	void birthday() {
+	void aging() {
 		if (!isAdult && age >= 18) {
 			isAdult = true;
 			if(isMale)
@@ -170,6 +172,7 @@ public class BeanLife : MonoBehaviour {
 					sr.sprite = femaleDeadSprite;
 				gameStats.dead (isMale, this.gameObject);
 				Invoke("destroy", 10);
+                playSound(0);
 			}
 		}
 	}
@@ -276,6 +279,11 @@ public class BeanLife : MonoBehaviour {
 	{
 
 	}
+
+    void playSound(int clip)
+    {
+        audio.clip = audioClip[clip];
+    }
 
 	public void setMother(string s) { motherName = s; }
 	public void setFather(string s) { fatherName = s; }
