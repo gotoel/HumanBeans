@@ -160,8 +160,8 @@ public class BeanLife : MonoBehaviour {
 			age++; 
 
 		// FIX DEATH
-		int deathInt = Random.Range (age * age, 150000);
-		if (deathInt >= 149090) {
+		float deathChance = Random.Range(0f, 100f);
+		if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
 			isDead = true;
 			if(isMale)
 				sr.sprite = maleDeadSprite;
