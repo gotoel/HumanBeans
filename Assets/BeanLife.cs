@@ -160,15 +160,17 @@ public class BeanLife : MonoBehaviour {
 			age++; 
 
 		// FIX DEATH
-		float deathChance = Random.Range(0f, 100f);
-		if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
-			isDead = true;
-			if(isMale)
-				sr.sprite = maleDeadSprite;
-			else
-				sr.sprite = femaleDeadSprite;
-			gameStats.dead (isMale, this.gameObject);
-			Invoke("destroy", 10);
+		if(age >= 18) {
+			float deathChance = Random.Range(0f, 100f);
+			if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
+				isDead = true;
+				if(isMale)
+					sr.sprite = maleDeadSprite;
+				else
+					sr.sprite = femaleDeadSprite;
+				gameStats.dead (isMale, this.gameObject);
+				Invoke("destroy", 10);
+			}
 		}
 	}
 
