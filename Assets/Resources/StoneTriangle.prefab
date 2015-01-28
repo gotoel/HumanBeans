@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21287766}
   - 50: {fileID: 5087766}
   - 60: {fileID: 6062690}
+  - 114: {fileID: 11400112}
   m_Layer: 0
   m_Name: StoneTriangle
   m_TagString: Untagged
@@ -63,6 +64,18 @@ PolygonCollider2D:
       - {x: .699999988, y: -.349999994}
       - {x: .699999988, y: -.289999992}
       - {x: .0799999982, y: .349999994}
+--- !u!114 &11400112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1542f397488b344399d83f48a0253fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partOfHouse: 0
 --- !u!212 &21287766
 SpriteRenderer:
   m_ObjectHideFlags: 1

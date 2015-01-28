@@ -33,7 +33,7 @@ public class BeanLife : MonoBehaviour {
 	GameObject go;
 
 	// inventory
-	public int blockMaterial = 0;
+	public int blockMaterial;
 
 	// house
 	public Vector2 houseLoc;
@@ -41,10 +41,11 @@ public class BeanLife : MonoBehaviour {
 	public bool hasHouse;
 
 
-	//GUI
+	//GUIa
 	//Vector2 offset =  Vector2(0, 1.5);
 
 	void Start () {
+
 		house = null;
 		hasHouse = false;
 
@@ -79,6 +80,8 @@ public class BeanLife : MonoBehaviour {
 
 		// resize the 2d collidor to fit the baby sprite
 		resizeCollider ();
+
+		//blockMaterial = 13;
 	
 
 	}
@@ -115,7 +118,7 @@ public class BeanLife : MonoBehaviour {
 	void buildHouse() {
 		Debug.Log ("Building house...");
 		if (house == null) {
-			houseLoc = new Vector2(this.transform.position.x, this.transform.position.y+2F);
+			houseLoc = new Vector2(this.transform.position.x, this.transform.position.y);
 			house = new House();
 			house.newHouse (houseLoc);
 			house.addBlock ();
@@ -134,7 +137,7 @@ public class BeanLife : MonoBehaviour {
 			GUI.color = Color.black;
 			Vector3 point = Camera.main.WorldToScreenPoint (houseLoc);
 			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
-			GUI.Box (new Rect (point.x, point.y, 120, 20), beanName + "'s house");
+			GUI.Box (new Rect (point.x, point.y, 120, 30), beanName + "'s house");
 		}
 	}
 
