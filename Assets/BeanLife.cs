@@ -2,39 +2,69 @@
 using System.Collections;
 
 public class BeanLife : MonoBehaviour {
-	SpriteRenderer sr;
 
+	// movement
 	private float moveSpeed = -5; 
 	private float tick = 0;
 	private float chanceToTurn = 0.01F;
 	private float randomChance;
-	private bool givenBirth = false;
-	private bool isSelected = false;
 	private bool colliding = false;
+
+
+	// life
+	public bool isMale = true, isAdult = false, isDead = false;
+	private bool givenBirth = false;
 	public int age;
 
-	public bool isMale = true, isAdult = false, isDead = false;
-	public Sprite maleSprite, femaleSprite, maleBabySprite, femaleBabySprite, maleDeadSprite, femaleDeadSprite;
-
-	public GameObject bean; 
-	public GameStats gameStats;
-
+	// family
 	public string beanName = "noname", motherName = "God", fatherName = "God";
 
+	// player interaction
+	private bool isSelected = false;
+
+
+	// appearence
+	SpriteRenderer sr;
+	public Sprite maleSprite, femaleSprite, maleBabySprite, femaleBabySprite, maleDeadSprite, femaleDeadSprite;
+
+	// objects
+	public GameObject bean; 
+	public GameStats gameStats;
 	GameObject go;
+
+	// inventory
+	public int blockMaterial = 0;
+
+	// house
+	public Vector2 houseLoc;
+	public House house;
+	public bool hasHouse;
 
 
 	//GUI
 	//Vector2 offset =  Vector2(0, 1.5);
 
 	void Start () {
+		house = null;
+		hasHouse = false;
+
+		// Add to game stats list
+		// Slow, as it searches the entire scene for the GameStats object, need to fix.
 		go = GameObject.Find("_SCRIPTS_");
 		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
+
+		// set life specs
 		age = 0;
 		isAdult = false;
 		generateName ();
+
+		// Invoke repeating of the birthday method
 		InvokeRepeating ("birthday", 0, 1);
+
+		// initilize sprite renderer so that we can change sprite
 		sr = GetComponent<SpriteRenderer>();
+
+		// 50/50 chance of becoming male/female -- could change later to make game easier
 		if (UnityEngine.Random.value < .5) {
 			isMale = true;
 			this.name = "Bean_Male";
@@ -46,6 +76,8 @@ public class BeanLife : MonoBehaviour {
 			sr.sprite = femaleBabySprite;
 			gameStats.newFemale (this.gameObject);
 		}
+
+		// resize the 2d collidor to fit the baby sprite
 		resizeCollider ();
 	
 
@@ -53,6 +85,12 @@ public class BeanLife : MonoBehaviour {
 	
 	void FixedUpdate() {
 		if (!isDead) {
+
+			if(blockMaterial > 0) {
+				buildHouse();
+			}
+
+			// random chance to turn and walk a different direction
 			randomChance = UnityEngine.Random.Range (chanceToTurn, 1);
 			if (randomChance >= .99) {
 				if (moveSpeed < 0)
@@ -63,6 +101,8 @@ public class BeanLife : MonoBehaviour {
 
 			} else
 				chanceToTurn += 0.01F;
+
+			// if colliding with another object jump over it
 			if(colliding)	
 				rigidbody2D.AddForce (new Vector2 (moveSpeed, 20));
 			else
@@ -72,14 +112,29 @@ public class BeanLife : MonoBehaviour {
 		}
 	}
 
+	void buildHouse() {
+		Debug.Log ("Building house...");
+		if (house == null) {
+			houseLoc = new Vector2(this.transform.position.x, this.transform.position.y+2F);
+			house = new House();
+			house.newHouse (houseLoc);
+			house.addBlock ();
+			hasHouse = true;
+		}
+		else
+			house.addBlock ();
+		blockMaterial--;
+	}
+
 	void OnGUI() {
-		if (isSelected) {
+		if (hasHouse) {
+			// draw house
+
 			GUI.depth = 5;
 			GUI.color = Color.black;
-			Vector3 point = Camera.main.WorldToScreenPoint (transform.position);
-
-			//Debug.Log ("X: " + gameObject.rigidbody2D.position.x + " Y: " + gameObject.rigidbody2D.position.y); 
-			//GUI.Label (new Rect (point.x - 50, Screen.height - point.y - 50, 200, 200), "Name: " + beanName + " Age: " + age + "\nMother: " + motherName + "\nFather: " + fatherName + "\nAlive: " + !isDead);
+			Vector3 point = Camera.main.WorldToScreenPoint (houseLoc);
+			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
+			GUI.Box (new Rect (point.x, point.y, 120, 20), beanName + "'s house");
 		}
 	}
 
@@ -130,6 +185,12 @@ public class BeanLife : MonoBehaviour {
 					newBean.GetComponent<BeanLife>().setFather (col.gameObject.GetComponent<BeanLife> ().beanName);
 					givenBirth = true;
 				}
+			}
+		}
+		if (col.gameObject.name.Contains ("StoneBlock")) {
+			if(!col.gameObject.GetComponent<StoneBlock>().partOfHouse) {
+				Destroy(col.gameObject);
+				blockMaterial++;
 			}
 		}
 	}

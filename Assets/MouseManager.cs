@@ -12,7 +12,10 @@ public class MouseManager : MonoBehaviour {
 	
 	float velocityRatio = 4f; 	// If we aren't using a spring
 
-	public GameObject bean;
+	public Object bean;
+	public Object stoneBlock;
+
+	public string spawnType;
 
 	GameObject go;
 	public GameStats gameStats;
@@ -20,8 +23,23 @@ public class MouseManager : MonoBehaviour {
 	void Start() {
 		go = GameObject.Find("_SCRIPTS_");
 		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
+		spawnType = "beans";
+		bean = Resources.Load("Bean_prefab");
+		stoneBlock = Resources.Load("StoneBlock");
 	}
 
+
+	void OnGUI() {
+
+		GUI.Box (new Rect (Screen.width-110, 20, 100, 90), "Spawn Menu");
+
+		if (GUI.Button (new Rect (Screen.width-100, 50, 80, 20), "Beans")) {
+			spawnType = "beans";
+		}
+		if (GUI.Button (new Rect (Screen.width-100, 80, 80, 20), "Blocks")) {
+			spawnType = "blocks";
+		}
+	}
 
 	void Update() {
 		if( Input.GetMouseButtonDown(0) ) {
@@ -86,7 +104,12 @@ public class MouseManager : MonoBehaviour {
 			Vector2 mousePos2D = new Vector2(mouseWorldPos3D.x, mouseWorldPos3D.y);
 			
 			Vector2 dir = Vector2.zero;
-			Object newBean = Instantiate (bean, mousePos2D, Quaternion.identity);
+			if(spawnType.Equals ("beans"))
+				Instantiate (bean, mousePos2D, Quaternion.identity);
+			else if(spawnType.Equals ("blocks"))
+				Instantiate (stoneBlock, mousePos2D, Quaternion.identity);
+			 
+		
 		}
 		
 

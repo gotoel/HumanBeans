@@ -68,28 +68,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e30adacd795d749a3764d7c464123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: -5
-  tick: 0
-  chanceToTurn: 1
-  randomChance: 0
   isMale: 1
   isAdult: 0
   isDead: 0
+  age: 0
+  beanName: noname
+  motherName: God
+  fatherName: God
   maleSprite: {fileID: 21300000, guid: 187bd94835b24fe4a9bdc369c0ac17dc, type: 3}
   femaleSprite: {fileID: 21300000, guid: 9411e892efa455f4982ad5d6109ba699, type: 3}
   maleBabySprite: {fileID: 21300000, guid: 83d7601054de2e54ea7710eb190c0da6, type: 3}
   femaleBabySprite: {fileID: 21300000, guid: 9274ee2376424424eb0c3b2555d1152a, type: 3}
   maleDeadSprite: {fileID: 21300000, guid: 13452cbc41c99594d8f7936858040964, type: 3}
   femaleDeadSprite: {fileID: 21300000, guid: 5a3f09608f466eb40b70ec51def654d0, type: 3}
-  givenBirth: 0
-  isSelected: 0
-  colliding: 0
-  age: 0
   bean: {fileID: 193964}
   gameStats: {fileID: 0}
-  beanName: noname
-  motherName: God
-  fatherName: God
+  blockMaterial: 0
+  houseLoc: {x: 0, y: 0}
+  hasHouse: 0
 --- !u!212 &21293964
 SpriteRenderer:
   m_ObjectHideFlags: 1

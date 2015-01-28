@@ -21,11 +21,11 @@ public class GameStats : MonoBehaviour {
 		Vector3 point = Camera.main.WorldToScreenPoint (transform.position);
 			
 		//Debug.Log ("X: " + gameObject.rigidbody2D.position.x + " Y: " + gameObject.rigidbody2D.position.y); 
-		GUI.Box (new Rect (50, 50, 120, 120), "Beans: " + beans + "\nMales: " + males + "\nFemales: " + females + "\nDeceased: " + deceased + "\nbeansList count: " + beansList.Count);
+		GUI.Box (new Rect (10, 10, 120, 120), "Beans: " + beans + "\nMales: " + males + "\nFemales: " + females + "\nDeceased: " + deceased + "\nbeansList count: " + beansList.Count);
 
 		if (selectedBean != null) {
 			point = Camera.main.WorldToScreenPoint (selectedBean.transform.position);
-			GUI.Label (new Rect (point.x - 50, Screen.height - point.y - 50, 200, 200), "Name: " + selectedBean.GetComponent<BeanLife> ().beanName + " Age: " + selectedBean.GetComponent<BeanLife> ().age + "\nMother: " + selectedBean.GetComponent<BeanLife> ().motherName + "\nFather: " + selectedBean.GetComponent<BeanLife> ().fatherName + "\nAlive: " + !selectedBean.GetComponent<BeanLife> ().isDead);
+			GUI.Label (new Rect (point.x - 50, Screen.height - point.y - 50, 200, 200), "Name: " + selectedBean.GetComponent<BeanLife> ().beanName + " Age: " + selectedBean.GetComponent<BeanLife> ().age + "\nMother: " + selectedBean.GetComponent<BeanLife> ().motherName + "\nFather: " + selectedBean.GetComponent<BeanLife> ().fatherName + "\nAlive: " + !selectedBean.GetComponent<BeanLife> ().isDead + "\nInventory: " + selectedBean.GetComponent<BeanLife> ().blockMaterial);
 		}
 	
 	}
