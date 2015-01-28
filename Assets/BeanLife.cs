@@ -255,10 +255,10 @@ public class BeanLife : MonoBehaviour {
 
 	void OnMouseDown() {
 		if (isSelected) {
-			isSelected = true;
+			isSelected = false;
 			gameStats.deselect ();
 		} else {
-			isSelected = false;
+			isSelected = true;
 			gameStats.setSelected (this.gameObject);
 		}
 	}
