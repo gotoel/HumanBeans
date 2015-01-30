@@ -86,6 +86,7 @@ MonoBehaviour:
   blockMaterial: 0
   houseLoc: {x: 0, y: 0}
   hasHouse: 0
+  audioClip: []
 --- !u!212 &21293964
 SpriteRenderer:
   m_ObjectHideFlags: 1
