@@ -55,15 +55,6 @@ public class BeanLife : MonoBehaviour {
 		go = GameObject.Find("_SCRIPTS_");
 		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
 
-		// set life specs
-		age = 0;
-		isAdult = false;
-		generateName ();
-		partOfFamily = false;
-
-		// Invoke repeating of the aging method
-		InvokeRepeating ("aging", 0, 1);
-
 		// initilize sprite renderer so that we can change sprite
 		sr = GetComponent<SpriteRenderer>();
 
@@ -79,6 +70,15 @@ public class BeanLife : MonoBehaviour {
 			sr.sprite = femaleBabySprite;
 			gameStats.newFemale (this.gameObject);
 		}
+
+        // set life specs
+        age = 0;
+        isAdult = false;
+        generateName();
+        partOfFamily = false;
+
+        // Invoke repeating of the aging method
+        InvokeRepeating("aging", 0, 1);
 
 		// resize the 2d collidor to fit the baby sprite
 		resizeCollider ();
@@ -277,7 +277,7 @@ public class BeanLife : MonoBehaviour {
 		bool nameFound = false;
 		string[] words = content.Split('\n');
 		while (!nameFound) {
-			int nameInt = Random.Range (1,2900);
+			int nameInt = Random.Range (1,300);
 			string text = words[nameInt];
 
 			object[] obj = GameObject.FindObjectsOfType(typeof (GameObject));

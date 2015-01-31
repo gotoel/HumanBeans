@@ -99,7 +99,8 @@ public class MouseManager : MonoBehaviour {
 			//dragLine.enabled = false;
 		}
 
-		if (Input.GetMouseButton (1)) {
+        if (Input.GetMouseButton(1) || Input.GetKeyDown(KeyCode.Space))
+        {
 			Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector2 mousePos2D = new Vector2(mouseWorldPos3D.x, mouseWorldPos3D.y);
 			
