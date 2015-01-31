@@ -9,6 +9,7 @@ public class GameStats : MonoBehaviour {
 	List<GameObject> beansList = new List<GameObject>();
 	GameObject selectedBean;
 
+	List<List<string>> families = new List<List<string>>();
 
 	// Use this for initialization
 	void Start () {

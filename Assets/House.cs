@@ -39,50 +39,6 @@ public class House {
 	
 	}
 
-	/*
-	public void addBlock() {
-
-		if (!firstBlockDown) {
-			houseBase.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 (houseStartLoc.x, houseStartLoc.y - 2F), Quaternion.identity));
-		}
-
-		if (!baseDone) {
-			houseBase.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 ((houseStartLoc.x + (houseBase.Count * .7F)), houseStartLoc.y - 2F), Quaternion.identity));
-			Debug.Log ("Bounds: x: " + houseBase [houseBase.Count - 1].collider2D.bounds.size.x + " y: " + houseBase [houseBase.Count - 1].collider2D.bounds.size.y);
-			houseBase [houseBase.Count - 1].GetComponent<StoneBlock> ().partOfHouse = true;
-			houseBase [houseBase.Count - 1].rigidbody2D.isKinematic = true;
-		} else if (!wallsDone) {
-			// left side of house
-			if(houseWalls.Count < 3) {
-				houseWalls.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 ((houseStartLoc.x), (houseStartLoc.y - 2F)+(houseBase.Count * .7F)), Quaternion.identity));
-				houseWalls [houseWalls.Count - 1].GetComponent<StoneBlock> ().partOfHouse = true;
-				//houseWalls [houseWalls.Count - 1].rigidbody2D.isKinematic = true;
-			}
-			// right side of house
-			else {
-				houseWalls.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 ((houseStartLoc.x + ((houseBase.Count-1) * .7F)), (houseStartLoc.y - 2F)+(houseBase.Count-3 * .7F)), Quaternion.identity));
-				houseWalls [houseWalls.Count - 1].GetComponent<StoneBlock> ().partOfHouse = true;
-				//houseWalls [houseWalls.Count - 1].rigidbody2D.isKinematic = true;
-			}
-		} else if (!roofDone) {
-			houseRoof = (GameObject)GameObject.Instantiate (stoneRoof, new Vector2 (houseStartLoc.x+1.5F, (houseStartLoc.y - 2F)+(houseBase.Count * .7F)), Quaternion.identity);
-			houseRoof.GetComponent<StoneTriangle> ().partOfHouse = true;
-			roofDone = true;
-			//houseRoof [houseRoof.Count - 1].rigidbody2D.isKinematic = true;
-		}
-		if (houseBase.Count >= 4)
-			baseDone = true;
-		if (houseWalls.Count >= 6)
-			wallsDone = true;
-		if (houseRoof != null) {
-			roofDone = true;
-			houseBuilt = true;
-		}
-		
-	}
-	*/
-
-
 	public void addBlock() {
 		if (!firstBlockDown) {
 			houseBase.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 (houseStartLoc.x, houseStartLoc.y), Quaternion.identity));

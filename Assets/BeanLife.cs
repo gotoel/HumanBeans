@@ -9,6 +9,7 @@ public class BeanLife : MonoBehaviour {
 	private float chanceToTurn = 0.01F;
 	private float randomChance;
 	private bool colliding = false;
+	private bool buildingHouse = false;
 
 
 	// life
@@ -18,6 +19,7 @@ public class BeanLife : MonoBehaviour {
 
 	// family
 	public string beanName = "noname", motherName = "God", fatherName = "God";
+	public bool partOfFamily;
 
 	// player interaction
 	private bool isSelected = false;
@@ -57,6 +59,7 @@ public class BeanLife : MonoBehaviour {
 		age = 0;
 		isAdult = false;
 		generateName ();
+		partOfFamily = false;
 
 		// Invoke repeating of the aging method
 		InvokeRepeating ("aging", 0, 1);
@@ -88,7 +91,7 @@ public class BeanLife : MonoBehaviour {
 
 	// called every phyisics engine update
 	void FixedUpdate() {
-		if (!isDead) {
+		if (!isDead && !buildingHouse) {
 
 			// if bean has more than one building material in inventory, add to its house
 			// will need to check if the bean's current house is build already. Then material will
@@ -116,28 +119,33 @@ public class BeanLife : MonoBehaviour {
 				rigidbody2D.AddForce (new Vector2 (moveSpeed, 0));
 
 			// physics engine update tick
-			tick++;
 		}
+		tick++;
 	}
 
 
 	// performs the beans side of building a house
 	void buildHouse() {
+		buildingHouse = true;
+
 		//Debug.Log ("Building house...");
 		// if the current house does not exist, create a new house at the bean's current world location.
 		// The house object will be created using the House class, which will handle the physical construction of the house.
 		// Place the first block that triggered this method call.
 		// And if the house does exist, add a block to it.
 		if (house == null) {
-			houseLoc = new Vector2(this.transform.position.x, this.transform.position.y);
-			house = new House();
+			houseLoc = new Vector2 (this.transform.position.x, this.transform.position.y);
+			house = new House ();
 			house.newHouse (houseLoc);
+			rigidbody2D.AddForce (houseLoc);
 			house.addBlock ();
 			hasHouse = true;
-		}
-		else
+		} else {
+			rigidbody2D.AddForce(houseLoc);
 			house.addBlock ();
+		}
 		blockMaterial--;
+		buildingHouse = false;
 	}
 
 	// GUI drawing method.
