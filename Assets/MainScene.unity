@@ -474,7 +474,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1737327277}
-  - 114: {fileID: 1737327278}
   - 114: {fileID: 1737327279}
   m_Layer: 0
   m_Name: _SCRIPTS_
@@ -495,22 +494,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!114 &1737327278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1737327276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e881e5b306d1a14c98ff5a3f37de29f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useSpring: 0
-  bean: {fileID: 193964, guid: 028d7119ad16d664881da6099d809e56, type: 2}
-  stoneBlock: {fileID: 0}
-  spawnType: 
-  gameStats: {fileID: 0}
 --- !u!114 &1737327279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +505,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed752adc5d44114da3dd73f2a48dfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beansList: []
+  maleNamesAsset: {fileID: 0}
+  femaleNamesAsset: {fileID: 0}
+  maleNames: []
+  femaleNames: []
 --- !u!1 &2114409062
 GameObject:
   m_ObjectHideFlags: 0

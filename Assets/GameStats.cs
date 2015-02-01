@@ -6,14 +6,39 @@ public class GameStats : MonoBehaviour {
 
 	int beans = 0, males = 0, females = 0, deceased = 0;
 
-	List<GameObject> beansList = new List<GameObject>();
+	public const int MAX_BEANS = 250;
+
+	public List<GameObject> beansList = new List<GameObject>();
+
 	GameObject selectedBean;
 
-	List<List<string>> families = new List<List<string>>();
+	public List<List<string>> families = new List<List<string>>();
 
+	public static GameStats Instance { get; private set; } // Singleton ty arma
+
+
+
+	public TextAsset maleNamesAsset, femaleNamesAsset;
+	public string[] maleNames, femaleNames;
+
+	void Awake() {
+		if (Instance != null && Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
+		maleNamesAsset = Resources.Load("male-names") as TextAsset;
+		femaleNamesAsset = Resources.Load("female-names") as TextAsset;
+		maleNames = maleNamesAsset.text.Split('\n');
+		femaleNames = femaleNamesAsset.text.Split('\n');
+
+	}
+	
+	
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 
 	void OnGUI() {
@@ -22,7 +47,7 @@ public class GameStats : MonoBehaviour {
 		Vector3 point = Camera.main.WorldToScreenPoint (transform.position);
 			
 		//Debug.Log ("X: " + gameObject.rigidbody2D.position.x + " Y: " + gameObject.rigidbody2D.position.y); 
-		GUI.Box (new Rect (10, 10, 120, 120), "Beans: " + beans + "\nMales: " + males + "\nFemales: " + females + "\nDeceased: " + deceased + "\nbeansList count: " + beansList.Count);
+		GUI.Box (new Rect (10, 10, 130, 90), "Beans: " + beans + "\nMales: " + males + "\nFemales: " + females + "\nDeceased: " + deceased + "\nbeansList count: " + beansList.Count);
 
 		if (selectedBean != null) {
 			point = Camera.main.WorldToScreenPoint (selectedBean.transform.position);
@@ -55,10 +80,7 @@ public class GameStats : MonoBehaviour {
 			males--;
 		else
 			females--;
-		foreach(GameObject b in beansList) {
-			if(b.Equals (g))
-				beansList.Remove (b);
-		}
+		beansList.Remove (g);
 	}
 
 	public void setSelected(GameObject b) {
@@ -67,6 +89,10 @@ public class GameStats : MonoBehaviour {
 
 	public void deselect() {
 		selectedBean = null;
+	}
+
+	public int getMaxBeans() {
+		return MAX_BEANS;
 	}
 
 

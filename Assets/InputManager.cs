@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MouseManager : MonoBehaviour {
+public class InputManager : MonoBehaviour {
 	
 	public bool useSpring = false;
 	
@@ -98,21 +98,48 @@ public class MouseManager : MonoBehaviour {
 			grabbedObject = null;
 			//dragLine.enabled = false;
 		}
+		if (Input.touchCount == 1) {
 
-        if (Input.GetMouseButton(1) || Input.GetKeyDown(KeyCode.Space))
-        {
-			Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector2 mousePos2D = new Vector2(mouseWorldPos3D.x, mouseWorldPos3D.y);
-			
-			Vector2 dir = Vector2.zero;
-			if(spawnType.Equals ("beans"))
-				Instantiate (bean, mousePos2D, Quaternion.identity);
-			else if(spawnType.Equals ("blocks"))
-				Instantiate (stoneBlock, mousePos2D, Quaternion.identity);
-			 
+		}
+
+        	if (Input.GetMouseButton(1) || Input.GetKeyDown(KeyCode.Space))
+        	{
+			if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
+				Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				Vector2 mousePos2D = new Vector2(mouseWorldPos3D.x, mouseWorldPos3D.y);
+				
+				Vector2 dir = Vector2.zero;
+				if(spawnType.Equals ("beans"))
+					Instantiate (bean, mousePos2D, Quaternion.identity);
+				else if(spawnType.Equals ("blocks"))
+					Instantiate (stoneBlock, mousePos2D, Quaternion.identity);
+			}
 		
 		}
+
+		int nbTouches = Input.touchCount;
 		
+		if(nbTouches > 0)
+		{
+			if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
+				//print(nbTouches + " touch(es) detected");
+				
+				for (int i = 0; i < nbTouches; i++)
+				{
+					Touch touch = Input.GetTouch(i);
+					Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(touch.position);
+					Vector2 mousePos2D = new Vector2(touch.position.x, touch.position.y);
+					
+					Vector2 dir = Vector2.zero;
+					if(spawnType.Equals ("beans"))
+						Instantiate (bean, touch.position, Quaternion.identity);
+					else if(spawnType.Equals ("blocks"))
+						Instantiate (stoneBlock, touch.position, Quaternion.identity);
+							
+					print("Touch index " + touch.fingerId + " detected at position " + touch.position);
+				}
+			}
+		}
 
 		
 	}

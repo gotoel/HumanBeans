@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BeanLife : MonoBehaviour {
 
@@ -52,8 +53,8 @@ public class BeanLife : MonoBehaviour {
 
 		// Add to game stats list
 		// Slow, as it searches the entire scene for the GameStats object, need to fix.
-		go = GameObject.Find("_SCRIPTS_");
-		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
+		//go = GameObject.Find("_SCRIPTS_");
+		gameStats = GameStats.Instance;
 
 		// initilize sprite renderer so that we can change sprite
 		sr = GetComponent<SpriteRenderer>();
@@ -77,8 +78,8 @@ public class BeanLife : MonoBehaviour {
         generateName();
         partOfFamily = false;
 
-        // Invoke repeating of the aging method
-        InvokeRepeating("aging", 0, 1);
+        // Invoke repeating of the ageIncrase method
+        InvokeRepeating("ageIncrease", 0, 1);
 
 		// resize the 2d collidor to fit the baby sprite
 		resizeCollider ();
@@ -170,7 +171,7 @@ public class BeanLife : MonoBehaviour {
 
 	// method to handle the age increase of the bean.
 	// Also handles the chance of death of the bean.
-	void aging() {
+	void ageIncrease() {
 
 		if(!isDead)
 			age++; 
@@ -183,7 +184,7 @@ public class BeanLife : MonoBehaviour {
 			resizeCollider ();
 		}
 
-		// FIX DEATH
+		// death algorithm by Armageddon. THX MAN
 		if(age >= 18) {
 			float deathChance = Random.Range(0f, 100f);
 			if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
@@ -199,7 +200,7 @@ public class BeanLife : MonoBehaviour {
 		}
 	}
 
-	// Deletes the game object from the game world, and I THINK deletes 
+	// Deletes the game object from the game world, and I THINK deletes the entire object itself, will have to find out.
 	void destroy() {
 		Destroy (this.gameObject);
 	}
@@ -215,11 +216,13 @@ public class BeanLife : MonoBehaviour {
 			// check pregnancy requirements, if all is fine, have a create a new bean.
 			if (col.gameObject.GetComponent<BeanLife> ().isMale && col.gameObject.GetComponent<BeanLife> ().isAdult && !isMale && isAdult && !givenBirth) {
 				if(!col.gameObject.GetComponent<BeanLife> ().beanName.Equals (fatherName)) {
-					Debug.Log ("Creating babby at: " + col.contacts [0].point);
-					GameObject newBean = (GameObject)Instantiate (bean, col.contacts [0].point, Quaternion.identity);
-					newBean.GetComponent<BeanLife>().setMother (beanName);
-					newBean.GetComponent<BeanLife>().setFather (col.gameObject.GetComponent<BeanLife> ().beanName);
-					givenBirth = true;
+					if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
+						Debug.Log ("Creating babby at: " + col.contacts [0].point);
+						GameObject newBean = (GameObject)Instantiate (bean, col.contacts [0].point, Quaternion.identity);
+						newBean.GetComponent<BeanLife>().setMother (beanName);
+						newBean.GetComponent<BeanLife>().setFather (col.gameObject.GetComponent<BeanLife> ().beanName);
+						givenBirth = true;
+					}
 				}
 			}
 		}
@@ -267,29 +270,23 @@ public class BeanLife : MonoBehaviour {
 	// this will prob change if last names are added.
 	// The method itself is straight forward, will not explain it.
 	private void generateName() {
-		TextAsset txt = null;
-		string content = "";
-		if(isMale)
-			txt = Resources.Load("male-names") as TextAsset;
+		string[] words = null;
+		if (isMale)
+			words = GameStats.Instance.maleNames;
 		else
-			txt = Resources.Load("female-names") as TextAsset;
-		content = txt.text;
+			words = GameStats.Instance.femaleNames;
 		bool nameFound = false;
-		string[] words = content.Split('\n');
 		while (!nameFound) {
 			int nameInt = Random.Range (1,300);
 			string text = words[nameInt];
 
-			object[] obj = GameObject.FindObjectsOfType(typeof (GameObject));
 			bool dupe = false;
-			foreach (object o in obj)
+			foreach (GameObject g in GameStats.Instance.beansList)
 			{
-				GameObject g = (GameObject) o;
-				if(g.name.Contains ("Bean")) {
-					if(g.GetComponent<BeanLife>().name.Equals (text))
-						dupe = true;
-				}
-				Debug.Log(g.name);
+				//Debug.Log ("TEST");
+				if(g.GetComponent<BeanLife>().name.Equals (text))
+					dupe = true;
+				//Debug.Log(o.ToString());
 			}
 			if(!dupe) {
 				nameFound = true;
@@ -297,6 +294,7 @@ public class BeanLife : MonoBehaviour {
 				Debug.Log (beanName + " has been born!");
 			}
 		}
+		Debug.Log ("DONE!!!!");
 	}
 
 
