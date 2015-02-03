@@ -119,27 +119,27 @@ public class InputManager : MonoBehaviour {
 
 		int nbTouches = Input.touchCount;
 		
-		if(nbTouches > 0)
-		{
-			if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
-				//print(nbTouches + " touch(es) detected");
-				
-				for (int i = 0; i < nbTouches; i++)
-				{
-					Touch touch = Input.GetTouch(i);
-					Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(touch.position);
-					Vector2 mousePos2D = new Vector2(touch.position.x, touch.position.y);
-					
-					Vector2 dir = Vector2.zero;
-					if(spawnType.Equals ("beans"))
-						Instantiate (bean, touch.position, Quaternion.identity);
-					else if(spawnType.Equals ("blocks"))
-						Instantiate (stoneBlock, touch.position, Quaternion.identity);
-							
-					print("Touch index " + touch.fingerId + " detected at position " + touch.position);
-				}
-			}
-		}
+		//if(nbTouches > 0)
+		//{
+		//	if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
+		//		//print(nbTouches + " touch(es) detected");
+		//		
+		//		for (int i = 0; i < nbTouches; i++)
+		//		{
+		//			Touch touch = Input.GetTouch(i);
+		//			Vector3 mouseWorldPos3D = Camera.main.ScreenToWorldPoint(touch.position);
+		//			Vector2 mousePos2D = new Vector2(touch.position.x, touch.position.y);
+		//			
+		//			Vector2 dir = Vector2.zero;
+		//			if(spawnType.Equals ("beans"))
+		//				Instantiate (bean, touch.position, Quaternion.identity);
+		//			else if(spawnType.Equals ("blocks"))
+		//				Instantiate (stoneBlock, touch.position, Quaternion.identity);
+		//					
+		//			print("Touch index " + touch.fingerId + " detected at position " + touch.position);
+		//		}
+		//	}
+		//}
 
 		
 	}

@@ -9,6 +9,8 @@ public class GameStats : MonoBehaviour {
 	public const int MAX_BEANS = 250;
 
 	public List<GameObject> beansList = new List<GameObject>();
+	//public List<Vector2> houseLocs = new List<Vector2>();
+	public List<House> houses = new List<House>();
 
 	GameObject selectedBean;
 
@@ -93,6 +95,17 @@ public class GameStats : MonoBehaviour {
 
 	public int getMaxBeans() {
 		return MAX_BEANS;
+	}
+
+	public bool locIsTaken(Vector2 loc) {
+		bool taken = false;
+		foreach(House h in houses) {
+			if(loc.x > (h.houseStartLoc.x - 2.8F) && loc.x < (h.houseStartLoc.x + 2.8F)) {
+				//Debug.Log (loc.x + " is greater than " + (v.x - 2.8F) + " and " + loc.x + " is less than " + (v.x + 2.8F));
+				taken = true;
+			}
+		}
+		return taken;
 	}
 
 

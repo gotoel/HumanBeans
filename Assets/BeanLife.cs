@@ -109,7 +109,7 @@ public class BeanLife : MonoBehaviour {
 				else
 					moveSpeed = Random.Range (-10, -1);
 				chanceToTurn = 0;
-
+			
 			} else
 				chanceToTurn += 0.01F;
 
@@ -119,8 +119,10 @@ public class BeanLife : MonoBehaviour {
 			else
 				rigidbody2D.AddForce (new Vector2 (moveSpeed, 0));
 
-			// physics engine update tick
+			 
 		}
+
+		//physics engine update tick
 		tick++;
 	}
 
@@ -134,18 +136,22 @@ public class BeanLife : MonoBehaviour {
 		// The house object will be created using the House class, which will handle the physical construction of the house.
 		// Place the first block that triggered this method call.
 		// And if the house does exist, add a block to it.
-		if (house == null) {
+		if (house == null && !GameStats.Instance.locIsTaken(this.gameObject.transform.position)) {
 			houseLoc = new Vector2 (this.transform.position.x, this.transform.position.y);
 			house = new House ();
 			house.newHouse (houseLoc);
-			rigidbody2D.AddForce (houseLoc);
+			//GameStats.Instance.houseLocs.Add (houseLoc);
+			GameStats.Instance.houses.Add (house); 
+
+			rigidbody2D.MovePosition (houseLoc);
 			house.addBlock ();
 			hasHouse = true;
-		} else {
+			blockMaterial--;
+		} else if(house != null) {
 			rigidbody2D.AddForce(houseLoc);
 			house.addBlock ();
+			blockMaterial--;
 		}
-		blockMaterial--;
 		buildingHouse = false;
 	}
 
@@ -158,9 +164,12 @@ public class BeanLife : MonoBehaviour {
 
 			GUI.depth = 5;
 			GUI.color = Color.black;
-			Vector3 point = Camera.main.WorldToScreenPoint (houseLoc);
+			Vector3 point = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x-2, houseLoc.y-2));
+			Vector3 pointTwo = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x+2, houseLoc.y+2));
 			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
-			GUI.Box (new Rect (point.x, point.y, 120, 30), beanName + "'s house");
+			GUI.Box (new Rect (point.x, point.y, pointTwo.x, pointTwo.y), beanName + "'s house");
+			GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
+			GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
 		}
 	}
 
@@ -195,11 +204,17 @@ public class BeanLife : MonoBehaviour {
 					sr.sprite = femaleDeadSprite;
 				gameStats.dead (isMale, this.gameObject);
 				Invoke("destroy", 10);
-                playSound(0);
+                		playSound(0);
 			}
 		}
-	}
 
+		// chance to get block material
+		float materialChance = Random.Range(0f, 100f);
+		if ((materialChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
+			blockMaterial++;
+		}
+	}
+	
 	// Deletes the game object from the game world, and I THINK deletes the entire object itself, will have to find out.
 	void destroy() {
 		Destroy (this.gameObject);
@@ -254,14 +269,10 @@ public class BeanLife : MonoBehaviour {
 		}
 	}
 
-	// resize the 2D collider to fit different bean sprite sizes. 
-	// Currently hard coded, would like to make it base off the size of the sprite if possible. Should be.
+	// resize the 2D collider to fit the bean's current sprite size.
 	void resizeCollider() {
 		CircleCollider2D c = this.gameObject.GetComponent<CircleCollider2D> ();
-		if(isAdult)
-			c.radius = 0.35F;
-		else
-			c.radius = 0.19F;
+		c.radius = this.GetComponent<SpriteRenderer> ().bounds.size.x / 2;
 	}
 
 
@@ -283,10 +294,8 @@ public class BeanLife : MonoBehaviour {
 			bool dupe = false;
 			foreach (GameObject g in GameStats.Instance.beansList)
 			{
-				//Debug.Log ("TEST");
 				if(g.GetComponent<BeanLife>().name.Equals (text))
 					dupe = true;
-				//Debug.Log(o.ToString());
 			}
 			if(!dupe) {
 				nameFound = true;

@@ -8,10 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 448802}
-  - 212: {fileID: 21248802}
   - 50: {fileID: 5048802}
   - 61: {fileID: 6148802}
   - 114: {fileID: 11435348}
+  - 212: {fileID: 21290302}
   m_Layer: 0
   m_Name: StoneBlock
   m_TagString: Untagged
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partOfHouse: 0
---- !u!212 &21248802
+--- !u!212 &21290302
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06d5f1d0db7cece4d80b941a2464934d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bcf571652b6f53948ac59b7a2f1b8af2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

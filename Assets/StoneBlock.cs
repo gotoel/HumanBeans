@@ -5,6 +5,7 @@ public class StoneBlock : MonoBehaviour {
 
 	public bool partOfHouse = false;
 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -14,4 +15,5 @@ public class StoneBlock : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }

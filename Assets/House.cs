@@ -11,10 +11,10 @@ public class House {
 	bool baseDone = false;
 	bool wallsDone = false;
 	bool roofDone = false;
-	bool houseBuilt = false;
+	//bool houseBuilt = false;
 	bool firstBlockDown = false;
 
-	Vector2 houseStartLoc;
+	public Vector2 houseStartLoc;
 
 	public Object stoneBlock = Resources.Load("StoneBlock");
 	public Object stoneRoof = Resources.Load ("StoneTriangle");
@@ -77,7 +77,7 @@ public class House {
 			wallsDone = true;
 		if (houseRoof != null) {
 			roofDone = true;
-			houseBuilt = true;
+			//houseBuilt = true;
 		}
 
 	}
