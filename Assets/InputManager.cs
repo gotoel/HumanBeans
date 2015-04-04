@@ -77,10 +77,10 @@ public class InputManager : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast(mousePos2D, dir);
 			if(hit.collider!=null) {
 				// We clicked on SOMETHING that has a collider
-				if(hit.collider.GetComponent<Rigidbody2D>() != null) {
+				if(hit.collider.transform.root.GetComponent<Rigidbody2D>() != null) {
 					if(hit.collider.gameObject.name.Equals ("blue_land"))
 						gameStats.deselect ();
-					grabbedObject = hit.collider.GetComponent<Rigidbody2D>();
+                    grabbedObject = hit.collider.transform.root.GetComponent<Rigidbody2D>();
 					
 					if(useSpring) {
 						springJoint = grabbedObject.gameObject.AddComponent<SpringJoint2D>();
