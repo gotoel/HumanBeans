@@ -268,7 +268,7 @@ Transform:
   m_LocalScale: {x: 1.89921868, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!60 &644261317
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!114 &1737327278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +498,10 @@ Prefab:
     - target: {fileID: 9500000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 2}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 2}
