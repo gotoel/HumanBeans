@@ -6,3 +6,7 @@ Temp
 *.unityproj
 *.sln
 *.userprefs
+Assets/UnityVS/*
+Assets/UnityVS.meta
+obj/*
+UnityVS.HumanBeans.v12.suo

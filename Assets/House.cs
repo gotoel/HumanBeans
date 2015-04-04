@@ -43,15 +43,15 @@ public class House {
 		if (!firstBlockDown) {
 			houseBase.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 (houseStartLoc.x, houseStartLoc.y), Quaternion.identity));
 			houseBase [houseBase.Count - 1].GetComponent<StoneBlock> ().partOfHouse = true;
-			houseBase [houseBase.Count - 1].rigidbody2D.isKinematic = true;
-			blockWidth = houseBase[0].collider2D.bounds.size.x;
-			blockHeight = houseBase[0].collider2D.bounds.size.y;
+			houseBase [houseBase.Count - 1].GetComponent<Rigidbody2D>().isKinematic = true;
+			blockWidth = houseBase[0].GetComponent<Collider2D>().bounds.size.x;
+			blockHeight = houseBase[0].GetComponent<Collider2D>().bounds.size.y;
 			firstBlockDown = true;
 		}
 		else if (!baseDone) {
 			houseBase.Add ((GameObject)GameObject.Instantiate (stoneBlock, new Vector2 (houseStartLoc.x + houseBase.Count*blockWidth, houseStartLoc.y), Quaternion.identity));
 			houseBase [houseBase.Count - 1].GetComponent<StoneBlock> ().partOfHouse = true;
-			houseBase [houseBase.Count - 1].rigidbody2D.isKinematic = true;
+			houseBase [houseBase.Count - 1].GetComponent<Rigidbody2D>().isKinematic = true;
 		} else if (!wallsDone) {
 			// left side of house
 			if(houseWalls.Count < 3) {

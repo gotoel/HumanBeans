@@ -134,9 +134,9 @@ public class BeanLife : MonoBehaviour {
 
 			// if colliding with another object jump over it
 			if(colliding)	
-				rigidbody2D.AddForce (new Vector2 (moveSpeed, 20));
+				GetComponent<Rigidbody2D>().AddForce (new Vector2 (moveSpeed, 20));
 			else
-				rigidbody2D.AddForce (new Vector2 (moveSpeed, 0));
+				GetComponent<Rigidbody2D>().AddForce (new Vector2 (moveSpeed, 0));
 
 			 
 		}
@@ -162,12 +162,12 @@ public class BeanLife : MonoBehaviour {
 			//GameStats.Instance.houseLocs.Add (houseLoc);
 			GameStats.Instance.houses.Add (house); 
 
-			rigidbody2D.MovePosition (houseLoc);
+			GetComponent<Rigidbody2D>().MovePosition (houseLoc);
 			house.addBlock ();
 			hasHouse = true;
 			blockMaterial--;
 		} else if(house != null) {
-			rigidbody2D.AddForce(houseLoc);
+			GetComponent<Rigidbody2D>().AddForce(houseLoc);
 			house.addBlock ();
 			blockMaterial--;
 		}
@@ -219,7 +219,8 @@ public class BeanLife : MonoBehaviour {
 		// death algorithm by Armageddon. THX MAN
 		if(age >= 18 && !isDead) {
 			float deathChance = Random.Range(0f, 100f);
-			if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
+            if ((deathChance + Mathf.Min(Mathf.Exp(1f/99f * Mathf.Log(80f) * (float)age), 79.95f)) >= 99.95f)
+            {
 				isDead = true;
 				if(isMale)
 					sr.sprite = maleDeadSprite;
@@ -236,7 +237,8 @@ public class BeanLife : MonoBehaviour {
 
 		// chance to get block material
 		float materialChance = Random.Range(0f, 100f);
-		if ((materialChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
+        if ((materialChance + Mathf.Min(Mathf.Exp(1f/99f * Mathf.Log(80f) * (float)age), 79.95f)) >= 99.95f)
+        {
 			blockMaterial++;
 		}
 		
