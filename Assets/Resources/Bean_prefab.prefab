@@ -66,7 +66,7 @@ AudioSource:
   m_GameObject: {fileID: 193964}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 8a88feb5def4e06458d29e23d355d5a8, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -127,25 +127,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e30adacd795d749a3764d7c464123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
   isMale: 1
   isAdult: 0
   isDead: 0
   age: 0
+  emotion: 
   beanName: noname
   motherName: God
   fatherName: God
   partOfFamily: 0
   maleSprite: {fileID: 21300000, guid: 187bd94835b24fe4a9bdc369c0ac17dc, type: 3}
   femaleSprite: {fileID: 21300000, guid: 9411e892efa455f4982ad5d6109ba699, type: 3}
-  maleBabySprite: {fileID: 21300000, guid: 83d7601054de2e54ea7710eb190c0da6, type: 3}
-  femaleBabySprite: {fileID: 21300000, guid: 9274ee2376424424eb0c3b2555d1152a, type: 3}
   maleDeadSprite: {fileID: 21300000, guid: 13452cbc41c99594d8f7936858040964, type: 3}
   femaleDeadSprite: {fileID: 21300000, guid: 5a3f09608f466eb40b70ec51def654d0, type: 3}
+  adultSprite: {x: 1, y: 1, z: 0}
+  childSprite: {x: .5, y: .5, z: 0}
   bean: {fileID: 193964}
   gameStats: {fileID: 0}
+  inputManager: {fileID: 0}
   blockMaterial: 0
   houseLoc: {x: 0, y: 0}
   hasHouse: 0
+  introSoundMale: {fileID: 8300000, guid: 7f324941f7cefec4e956d30dbfed33bb, type: 3}
+  deathSoundMale: {fileID: 8300000, guid: d14220fdabb61cd45ac85ef0fc3a8dc2, type: 3}
+  introSoundFemale: {fileID: 8300000, guid: 307b239afa6baa34aac684546fa5e6d1, type: 3}
+  deathSoundFemale: {fileID: 8300000, guid: 37c3ec8c17ad24b4aa6b5048d3ac5f1c, type: 3}
 --- !u!212 &21293964
 SpriteRenderer:
   m_ObjectHideFlags: 1

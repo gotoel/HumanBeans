@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class BeanLife : MonoBehaviour {
 
 	// movement
@@ -11,16 +12,19 @@ public class BeanLife : MonoBehaviour {
 	private float randomChance;
 	private bool colliding = false;
 	private bool buildingHouse = false;
+	public bool isGrounded = false;
 
 
 	// life
 	public bool isMale = true, isAdult = false, isDead = false;
 	private bool givenBirth = false;
 	public int age;
+	public string emotion;
 
 	// family
 	public string beanName = "noname", motherName = "God", fatherName = "God";
 	public bool partOfFamily;
+	private int curChildren, maxChildren;
 
 	// player interaction
 	private bool isSelected = false;
@@ -28,11 +32,14 @@ public class BeanLife : MonoBehaviour {
 
 	// appearence
 	SpriteRenderer sr;
-	public Sprite maleSprite, femaleSprite, maleBabySprite, femaleBabySprite, maleDeadSprite, femaleDeadSprite;
+	public Sprite maleSprite, femaleSprite, maleDeadSprite, femaleDeadSprite;
+	public Vector3 adultSprite = new Vector3 (1f, 1f);
+	public Vector3 childSprite = new Vector3(0.5f,0.5f);
 
 	// objects
 	public GameObject bean; 
 	public GameStats gameStats;
+	public InputManager inputManager;
 	GameObject go;
 
 	// inventory
@@ -43,6 +50,9 @@ public class BeanLife : MonoBehaviour {
 	public House house;
 	public bool hasHouse;
 
+	// sound
+	public AudioClip introSoundMale, deathSoundMale, introSoundFemale, deathSoundFemale;
+
 	// On creation of bean object
 	void Start () {
 
@@ -52,9 +62,8 @@ public class BeanLife : MonoBehaviour {
 		hasHouse = false;
 
 		// Add to game stats list
-		// Slow, as it searches the entire scene for the GameStats object, need to fix.
-		//go = GameObject.Find("_SCRIPTS_");
 		gameStats = GameStats.Instance;
+		inputManager = InputManager.Instance;
 
 		// initilize sprite renderer so that we can change sprite
 		sr = GetComponent<SpriteRenderer>();
@@ -63,30 +72,40 @@ public class BeanLife : MonoBehaviour {
 		if (UnityEngine.Random.value < .5) {
 			isMale = true;
 			this.name = "Bean_Male";
-			sr.sprite = maleBabySprite; 
+			sr.sprite = maleSprite; 
 			gameStats.newMale (this.gameObject);
 		} else { 
 			isMale = false;
 			this.name = "Bean_Female";
-			sr.sprite = femaleBabySprite;
+			sr.sprite = femaleSprite;
 			gameStats.newFemale (this.gameObject);
 		}
+		CircleCollider2D c = this.gameObject.GetComponent<CircleCollider2D> ();
+		SpriteRenderer s = this.gameObject.GetComponent<SpriteRenderer> ();
+		s.transform.localScale = childSprite;
+		c.transform.localScale = s.transform.localScale;
 
-        // set life specs
-        age = 0;
-        isAdult = false;
-        generateName();
-        partOfFamily = false;
 
-        // Invoke repeating of the ageIncrase method
-        InvokeRepeating("ageIncrease", 0, 1);
+        	// set life specs
+        	age = 0;
+        	isAdult = false;
+        	generateName();
+        	partOfFamily = false;
+		emotion = "happy";
+		curChildren = 0;
+		maxChildren = Random.Range (0, 5);
+
+        	// Invoke repeating of the ageIncrase method
+        	InvokeRepeating("ageIncrease", 0, 1);
 
 		// resize the 2d collidor to fit the baby sprite
-		resizeCollider ();
+		//resizeCollider ();
 		
 		//blockMaterial = 13;
-	
-
+		if(isMale)
+			AudioSource.PlayClipAtPoint (introSoundMale, this.transform.position);
+		else
+			AudioSource.PlayClipAtPoint (introSoundFemale, this.transform.position);
 	}
 
 
@@ -97,7 +116,7 @@ public class BeanLife : MonoBehaviour {
 			// if bean has more than one building material in inventory, add to its house
 			// will need to check if the bean's current house is build already. Then material will
 			// not be picked up.
-			if(blockMaterial > 0) {
+			if(blockMaterial > 0 && isGrounded) {
 				buildHouse();
 			}
 
@@ -167,9 +186,12 @@ public class BeanLife : MonoBehaviour {
 			Vector3 point = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x-2, houseLoc.y-2));
 			Vector3 pointTwo = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x+2, houseLoc.y+2));
 			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
+			// draw house area.
+			if(inputManager.debug) {
 			GUI.Box (new Rect (point.x, point.y, pointTwo.x, pointTwo.y), beanName + "'s house");
 			GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
 			GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
+			}
 		}
 	}
 
@@ -182,19 +204,20 @@ public class BeanLife : MonoBehaviour {
 	// Also handles the chance of death of the bean.
 	void ageIncrease() {
 
-		if(!isDead)
-			age++; 
+		if (!isDead) {
+			age++;
+			resizeBean ();
+		}
 		if (!isAdult && age >= 18) {
 			isAdult = true;
 			if(isMale)
 				sr.sprite = maleSprite; 
 			else 
 				sr.sprite = femaleSprite; 
-			resizeCollider ();
 		}
 
 		// death algorithm by Armageddon. THX MAN
-		if(age >= 18) {
+		if(age >= 18 && !isDead) {
 			float deathChance = Random.Range(0f, 100f);
 			if ((deathChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
 				isDead = true;
@@ -204,7 +227,10 @@ public class BeanLife : MonoBehaviour {
 					sr.sprite = femaleDeadSprite;
 				gameStats.dead (isMale, this.gameObject);
 				Invoke("destroy", 10);
-                		playSound(0);
+				if(isMale)
+					AudioSource.PlayClipAtPoint (deathSoundMale, this.transform.position);
+				else
+					AudioSource.PlayClipAtPoint (deathSoundFemale, this.transform.position);
 			}
 		}
 
@@ -213,13 +239,14 @@ public class BeanLife : MonoBehaviour {
 		if ((materialChance + Mathf.Min(Mathf.Exp(1 / 99 * Mathf.Log(1599/20) * age), 79.95f)) >= 99.95f) {
 			blockMaterial++;
 		}
+		
 	}
-	
+
+
 	// Deletes the game object from the game world, and I THINK deletes the entire object itself, will have to find out.
 	void destroy() {
 		Destroy (this.gameObject);
 	}
-
 
 	// Entering a collision with ANY other game object in the world.
 	void OnCollisionEnter2D(Collision2D col) {
@@ -229,14 +256,19 @@ public class BeanLife : MonoBehaviour {
 			colliding = true;
 
 			// check pregnancy requirements, if all is fine, have a create a new bean.
-			if (col.gameObject.GetComponent<BeanLife> ().isMale && col.gameObject.GetComponent<BeanLife> ().isAdult && !isMale && isAdult && !givenBirth) {
+			if (col.gameObject.GetComponent<BeanLife> ().isMale && col.gameObject.GetComponent<BeanLife> ().isAdult && !isMale && isAdult) {
 				if(!col.gameObject.GetComponent<BeanLife> ().beanName.Equals (fatherName)) {
 					if(GameStats.Instance.beansList.Count < GameStats.Instance.getMaxBeans ()) {
-						Debug.Log ("Creating babby at: " + col.contacts [0].point);
-						GameObject newBean = (GameObject)Instantiate (bean, col.contacts [0].point, Quaternion.identity);
-						newBean.GetComponent<BeanLife>().setMother (beanName);
-						newBean.GetComponent<BeanLife>().setFather (col.gameObject.GetComponent<BeanLife> ().beanName);
-						givenBirth = true;
+						if(curChildren < maxChildren) {
+							for(int i = 0; i < maxChildren; i++) {
+								Debug.Log ("Creating babby at: " + col.contacts [0].point);
+								GameObject newBean = (GameObject)Instantiate (bean, col.contacts [0].point, Quaternion.identity);
+								newBean.GetComponent<BeanLife>().setMother (beanName);
+								newBean.GetComponent<BeanLife>().setFather (col.gameObject.GetComponent<BeanLife> ().beanName);
+								givenBirth = true;
+								curChildren++;
+							}
+						}
 					}
 				}
 			}
@@ -248,6 +280,9 @@ public class BeanLife : MonoBehaviour {
 				Destroy(col.gameObject);
 				blockMaterial++;
 			}
+		}
+		if (col.gameObject.name.Contains ("blue_land")) {
+			isGrounded = true;
 		}
 	}
 
@@ -267,12 +302,29 @@ public class BeanLife : MonoBehaviour {
 		if (col.gameObject.name.Contains ("Bean")) {
 			colliding = false;
 		}
+		if (col.gameObject.name.Contains ("land")) {
+			isGrounded = false;
+		}
 	}
 
 	// resize the 2D collider to fit the bean's current sprite size.
+	[System.Obsolete("Incorrect way of resizing sprite/collider, set the localScale vector of the sprite to the collidor.", true)]
 	void resizeCollider() {
 		CircleCollider2D c = this.gameObject.GetComponent<CircleCollider2D> ();
 		c.radius = this.GetComponent<SpriteRenderer> ().bounds.size.x / 2;
+	}
+
+	void resizeBean() {
+		float resizeScale;
+		if (age < 18)
+			resizeScale = 0.01f;
+		else
+			resizeScale = 0.03f;
+		CircleCollider2D c = this.gameObject.GetComponent<CircleCollider2D> ();
+		SpriteRenderer s = this.gameObject.GetComponent<SpriteRenderer> ();
+		
+		s.transform.localScale = new Vector3(s.transform.localScale.x + resizeScale, s.transform.localScale.y + resizeScale, s.transform.localScale.z);
+		c.transform.localScale = s.transform.localScale;
 	}
 
 
@@ -303,7 +355,6 @@ public class BeanLife : MonoBehaviour {
 				Debug.Log (beanName + " has been born!");
 			}
 		}
-		Debug.Log ("DONE!!!!");
 	}
 
 

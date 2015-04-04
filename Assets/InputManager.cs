@@ -20,6 +20,13 @@ public class InputManager : MonoBehaviour {
 	GameObject go;
 	public GameStats gameStats;
 
+	public bool musicOn = true, sfxOn = true;
+	public bool settings = false, debug = false;
+
+	public bool hudOn = true;
+
+	public static InputManager Instance { get; private set; }
+
 	void Start() {
 		go = GameObject.Find("_SCRIPTS_");
 		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
@@ -30,15 +37,33 @@ public class InputManager : MonoBehaviour {
 
 
 	void OnGUI() {
+		
 
-		GUI.Box (new Rect (Screen.width-110, 20, 100, 90), "Spawn Menu");
+		if (GUI.Button (new Rect (Screen.width-90, Screen.height-30, 80, 20), "Toggle HUD")) {
+			hudOn = !hudOn;
+		}
+		if (hudOn) {
+			GUI.Box (new Rect (Screen.width-110, 20, 100, 90), "Spawn Menu");
+			if (GUI.Button (new Rect (Screen.width - 100, 50, 80, 20), "Beans")) {
+				spawnType = "beans";
+			}
+			if (GUI.Button (new Rect (Screen.width - 100, 80, 80, 20), "Blocks")) {
+				spawnType = "blocks";
+			}
 
-		if (GUI.Button (new Rect (Screen.width-100, 50, 80, 20), "Beans")) {
-			spawnType = "beans";
+			GUI.Box (new Rect (Screen.width - 110, 115, 100, 190), "Settings");
+			if (GUI.Button (new Rect (Screen.width - 100, 145, 80, 20), "Music")) {
+				musicOn = !musicOn;
+			}
+			if (GUI.Button (new Rect (Screen.width - 100, 175, 80, 20), "SFX")) {
+				sfxOn = !sfxOn;
+			}
+			if (GUI.Button (new Rect (Screen.width - 100, 205, 80, 20), "Debug")) {
+				debug = !debug;
+			}
 		}
-		if (GUI.Button (new Rect (Screen.width-100, 80, 80, 20), "Blocks")) {
-			spawnType = "blocks";
-		}
+
+
 	}
 
 	void Update() {
