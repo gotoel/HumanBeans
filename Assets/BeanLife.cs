@@ -38,7 +38,6 @@ public class BeanLife : MonoBehaviour {
 	public Vector3 childSprite = new Vector3(0.5f,0.5f);
 
 	// objects
-	public GameObject bean; 
 	public GameStats gameStats;
 	public InputManager inputManager;
 
@@ -180,10 +179,10 @@ public class BeanLife : MonoBehaviour {
 			Vector3 pointTwo = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x+2, houseLoc.y+2));
 			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
 			// draw house area.
-			if(inputManager.debug) {
-			GUI.Box (new Rect (point.x, point.y, pointTwo.x, pointTwo.y), beanName + "'s house");
-			GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
-			GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
+			if(InputManager.Instance.debug) {
+				GUI.Box (new Rect (point.x, point.y, pointTwo.x, pointTwo.y), beanName + "'s house");
+				GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
+				GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
 			}
 		}
 	}

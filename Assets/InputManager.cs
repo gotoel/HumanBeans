@@ -17,8 +17,6 @@ public class InputManager : MonoBehaviour {
 
 	public string spawnType;
 
-	GameObject go;
-	public GameStats gameStats;
 
 	public bool musicOn = true, sfxOn = true;
 	public bool settings = false, debug = false;
@@ -27,15 +25,15 @@ public class InputManager : MonoBehaviour {
 
 	public static InputManager Instance { get; private set; }
 
-	void Start() {
-		go = GameObject.Find("_SCRIPTS_");
-		gameStats = (GameStats) go.GetComponent(typeof(GameStats));
-		spawnType = "beans";
-		bean = Resources.Load("Bean_prefab");
-		stoneBlock = Resources.Load("StoneBlock");
+
+	void Awake() {
+		if (Instance != null && Instance != this) {
+			Destroy (gameObject);
+		}
+		Instance = this;
+		DontDestroyOnLoad (gameObject);
 	}
-
-
+		
 	void OnGUI() {
 		
 
@@ -79,7 +77,7 @@ public class InputManager : MonoBehaviour {
 				// We clicked on SOMETHING that has a collider
 				if(hit.collider.transform.root.GetComponent<Rigidbody2D>() != null) {
 					if(hit.collider.gameObject.name.Equals ("blue_land"))
-						gameStats.deselect ();
+                    GameStats.Instance.deselect();
                     grabbedObject = hit.collider.transform.root.GetComponent<Rigidbody2D>();
 					
 					if(useSpring) {
@@ -94,7 +92,7 @@ public class InputManager : MonoBehaviour {
 						
 						// Enable this if you want to collide with objects still (and you probably do)
 						// This will also WAKE UP the spring.
-						springJoint.collideConnected = true;
+                        springJoint.enableCollision = true;
 						
 						// This will also WAKE UP the spring, even if it's a totally
 						// redundant line because the connectedBody should already be null
@@ -109,7 +107,7 @@ public class InputManager : MonoBehaviour {
 				}
 			}
 			else
-				gameStats.deselect ();
+				GameStats.Instance.deselect ();
 		}
 		
 		if( Input.GetMouseButtonUp(0) && grabbedObject!=null ) {
