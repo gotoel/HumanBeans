@@ -7,20 +7,19 @@ public class GameStats : MonoBehaviour {
 	int beans = 0, males = 0, females = 0, deceased = 0;
 
 	public const int MAX_BEANS = 250;
-
+	
 	public List<GameObject> beansList = new List<GameObject>();
 	//public List<Vector2> houseLocs = new List<Vector2>();
 	public List<House> houses = new List<House>();
-
+	
 	GameObject selectedBean;
 
 	public List<List<string>> families = new List<List<string>>();
 
 	public static GameStats Instance { get; private set; } // Singleton ty arma
-
-
-
+	
 	public TextAsset maleNamesAsset, femaleNamesAsset;
+
 	public string[] maleNames, femaleNames;
 
 	void Awake() {

@@ -375,6 +375,103 @@ PolygonCollider2D:
       - {x: 5.28329182, y: -1.39420462}
       - {x: 5.10337734, y: -1.4147228}
       - {x: 3.28299451, y: -1.67553794}
+--- !u!1 &661165782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 661165784}
+  - 82: {fileID: 661165783}
+  m_Layer: 0
+  m_Name: bensound-psychedelic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &661165783
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 661165782}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4c3ab9d2c02d7de40994b44b971cf62b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!4 &661165784
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 661165782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1001 &817927572
 Prefab:
   m_ObjectHideFlags: 0
@@ -618,8 +715,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1737327277}
-  - 114: {fileID: 1737327279}
   - 114: {fileID: 1737327278}
+  - 114: {fileID: 1737327279}
   m_Layer: 0
   m_Name: _SCRIPTS_
   m_TagString: Untagged
@@ -651,10 +748,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useSpring: 0
-  bean: {fileID: 0}
-  stoneBlock: {fileID: 0}
+  bean: {fileID: 193964, guid: 028d7119ad16d664881da6099d809e56, type: 2}
+  stoneBlock: {fileID: 148802, guid: 1994882c30dac0a47adb0a2e4a8586d0, type: 2}
   spawnType: 
-  gameStats: {fileID: 0}
   musicOn: 1
   sfxOn: 1
   settings: 0
