@@ -12,9 +12,6 @@ public class InputManager : MonoBehaviour {
 	
 	float velocityRatio = 4f; 	// If we aren't using a spring
 
-	public Object bean;
-	public Object stoneBlock;
-
 	public string spawnType;
 
 
@@ -133,9 +130,9 @@ public class InputManager : MonoBehaviour {
 				
 				Vector2 dir = Vector2.zero;
 				if(spawnType.Equals ("beans"))
-					Instantiate (bean, mousePos2D, Quaternion.identity);
+					Instantiate (Resources.Load ("Bean_prefab"), mousePos2D, Quaternion.identity);
 				else if(spawnType.Equals ("blocks"))
-					Instantiate (stoneBlock, mousePos2D, Quaternion.identity);
+					Instantiate (Resources.Load ("StoneBlock"), mousePos2D, Quaternion.identity);
 			}
 		
 		}
