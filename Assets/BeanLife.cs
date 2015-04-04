@@ -94,10 +94,12 @@ public class BeanLife : MonoBehaviour {
         InvokeRepeating("ageIncrease", 0, 1);
 		
 		//blockMaterial = 13;
-		if(isMale)
-			AudioSource.PlayClipAtPoint (introSoundMale, this.transform.position);
-		else
-			AudioSource.PlayClipAtPoint (introSoundFemale, this.transform.position);
+		if (InputManager.Instance.sfxOn) {
+			if (isMale)
+				AudioSource.PlayClipAtPoint (introSoundMale, this.transform.position);
+			else
+				AudioSource.PlayClipAtPoint (introSoundFemale, this.transform.position);
+		}
 	}
 
 

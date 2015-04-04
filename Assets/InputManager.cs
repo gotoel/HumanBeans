@@ -49,6 +49,10 @@ public class InputManager : MonoBehaviour {
 			GUI.Box (new Rect (Screen.width - 110, 115, 100, 190), "Settings");
 			if (GUI.Button (new Rect (Screen.width - 100, 145, 80, 20), "Music")) {
 				musicOn = !musicOn;
+				if(musicOn) 
+					Camera.main.GetComponent<AudioSource>().Play ();
+				else
+					Camera.main.GetComponent<AudioSource>().Pause();
 			}
 			if (GUI.Button (new Rect (Screen.width - 100, 175, 80, 20), "SFX")) {
 				sfxOn = !sfxOn;
@@ -190,6 +194,10 @@ public class InputManager : MonoBehaviour {
 				//dragLine.SetPosition(1, new Vector3(mouseWorldPos3D.x, mouseWorldPos3D.y, -1));
 			}
 		}
+	}
+
+	void toggleMusic() {
+
 	}
 	
 }

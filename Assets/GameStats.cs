@@ -17,9 +17,8 @@ public class GameStats : MonoBehaviour {
 	public List<List<string>> families = new List<List<string>>();
 
 	public static GameStats Instance { get; private set; } // Singleton ty arma
-	
-	public TextAsset maleNamesAsset, femaleNamesAsset;
 
+	public TextAsset maleNamesAsset, femaleNamesAsset;
 	public string[] maleNames, femaleNames;
 
 	void Awake() {
