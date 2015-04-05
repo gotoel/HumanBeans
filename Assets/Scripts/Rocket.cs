@@ -19,9 +19,10 @@ public class Rocket : MonoBehaviour
 
 		// Instantiate the explosion where the rocket is with the random rotation.
 		Instantiate(explosion, transform.position, randomRotation);
-		for (int i = 0; i < 5; i++) {
+		int crewCount = Random.Range (3, 8);
+		for (int i = 0; i < crewCount; i++) {
 			Debug.Log ("Creating babby at: " + transform.position);
-			GameObject newBean = (GameObject)Instantiate (Resources.Load ("Bean_prefab"), transform.position, Quaternion.identity);
+			GameObject newBean = (GameObject)Instantiate (Resources.Load ("Bean_prefab"), new Vector2(transform.position.x + (i*0.5F), transform.position.y), Quaternion.identity);
 			newBean.GetComponent<BeanLife> ().setMother ("God");
 			newBean.GetComponent<BeanLife> ().setFather ("God");
 		}

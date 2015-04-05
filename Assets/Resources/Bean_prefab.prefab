@@ -235,6 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chanceToTurn: .00999999978
+  moveSpeed: -5
+  tick: 0
+  randomChance: 0
   colliding: 0
   isGrounded: 0
   isMale: 1

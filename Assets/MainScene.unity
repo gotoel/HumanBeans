@@ -268,7 +268,7 @@ Transform:
   m_LocalScale: {x: 1.89921868, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!60 &644261317
 PolygonCollider2D:
   m_ObjectHideFlags: 0

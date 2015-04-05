@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class BeanLife : MonoBehaviour {
 
 	// movement
-    [HideInInspector]
     public float chanceToTurn = 0.01F;
 	private float moveSpeed = -5, tick = 0, randomChance;
     private bool buildingHouse = false;
@@ -179,13 +178,15 @@ public class BeanLife : MonoBehaviour {
 			GUI.color = Color.black;
 			Vector3 point = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x-2, houseLoc.y-2));
 			Vector3 pointTwo = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x+2, houseLoc.y+2));
+			Vector3 pointThree = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x, houseLoc.y+2));
 			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
 			// draw house area.
 			if(InputManager.Instance.debug) {
-				GUI.Box (new Rect (point.x, point.y, pointTwo.x, pointTwo.y), beanName + "'s house");
+				GUI.Box (new Rect (point.x, point.y, (pointTwo.x-point.x), (pointTwo.y-point.y)), "");
 				GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
 				GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
 			}
+			GUI.Label (new Rect (pointThree.x, pointThree.y, 200, 120), beanName + "'s house");
 		}
 	}
 
