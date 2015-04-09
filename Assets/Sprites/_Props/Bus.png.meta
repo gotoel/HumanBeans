@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: f66e58b49cbb63741a688917eebb1b1d
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Bus
+    21300002: Wheels
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

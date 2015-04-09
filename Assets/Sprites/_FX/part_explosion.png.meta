@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: ec8e34c97ef2ee34395623fb7e4b0054
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: part_explosion_0
+    21300002: part_explosion_1
+    21300004: part_explosion_2
+    21300006: part_explosion_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

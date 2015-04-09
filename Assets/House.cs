@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class House {
 
-	List<GameObject> houseBase = new List<GameObject>();
+	public List<GameObject> houseBase = new List<GameObject>();
 	List<GameObject> houseWalls = new List<GameObject>();
 	GameObject houseRoof = new GameObject();
 
@@ -19,6 +19,9 @@ public class House {
 	public Object stoneBlock = Resources.Load("StoneBlock");
 	public Object stoneRoof = Resources.Load ("StoneTriangle");
 
+	public GameObject originalBuilder;
+	public GameObject owner;
+	public List<GameObject> residents;
 
 
 	public float blockWidth, blockHeight;
@@ -27,16 +30,22 @@ public class House {
 	
 	}
 
-	public void newHouse (Vector2 l) {
+	public House(Vector2 l, GameObject orig) {
 		houseRoof = null;
 		Debug.Log ("HOUSE BUILT");
 		houseStartLoc = l;
 		Debug.Log ("house loc: " + houseStartLoc.ToString ());
+		originalBuilder = orig;
+		owner = orig;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void ownerDied() {
+		owner = null;
 	}
 
 	public void addBlock() {

@@ -1,7 +1,15 @@
 fileFormatVersion: 2
 guid: e50f4af9499e24ac9b08e30acc337ee9
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Swan_Sheet 1_0
+    21300002: Swan_Sheet 1_1
+    21300004: Swan_Sheet 1_2
+    21300006: Swan_Sheet 1_3
+    21300008: Swan_Sheet 1_4
+    21300010: Swan_Sheet 1_5
+    21300012: Swan_Sheet 1_6
+    21300014: Swan_Sheet 1_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

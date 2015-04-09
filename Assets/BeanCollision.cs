@@ -26,18 +26,18 @@ public class BeanCollision : MonoBehaviour {
         if (col.gameObject.CompareTag("World"))
         {
             currentBean.isGrounded = true;
-        }
+		}
     }
 
     // Not sure if this works like I want it to... but check for continued collision with an object.
-    void OnCollisionStay2D(Collision2D col)
-    {
-        if (col.gameObject.CompareTag("Bean"))
-        {
-            if (col.gameObject.GetComponent<BeanLife>().isMale == currentBean.isMale)
-                currentBean.chanceToTurn += 0.5F;
-        }
-    }
+    //void OnCollisionStay2D(Collision2D col)
+    //{
+    //    if (col.gameObject.CompareTag("Bean"))
+    //    {
+    //        if (col.gameObject.GetComponent<BeanLife>().isMale == currentBean.isMale)
+    //            currentBean.chanceToTurn += 0.5F;
+    //    }
+    //}
 
     // Collision exited.
     void OnCollisionExit2D(Collision2D col)

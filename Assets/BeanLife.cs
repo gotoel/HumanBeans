@@ -9,7 +9,6 @@ public class BeanLife : MonoBehaviour {
     public float chanceToTurn = 0.01F;
 	private float moveSpeed = -5, tick = 0, randomChance;
     private bool buildingHouse = false;
-    [HideInInspector]
 	public bool colliding = false, isGrounded = false;
 
 
@@ -150,8 +149,7 @@ public class BeanLife : MonoBehaviour {
 		// And if the house does exist, add a block to it.
 		if (house == null && !GameStats.Instance.locIsTaken(this.gameObject.transform.position)) {
 			houseLoc = new Vector2 (this.transform.position.x, this.transform.position.y);
-			house = new House ();
-			house.newHouse (houseLoc);
+			house = new House (houseLoc, this.gameObject);
 			//GameStats.Instance.houseLocs.Add (houseLoc);
 			GameStats.Instance.houses.Add (house); 
 
@@ -169,25 +167,8 @@ public class BeanLife : MonoBehaviour {
 
 	// GUI drawing method.
 	void OnGUI() {
-
-		// draw a label for the bean's house location
-		if (hasHouse) {
 			// draw house
-
-			GUI.depth = 5;
-			GUI.color = Color.black;
-			Vector3 point = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x-2, houseLoc.y-2));
-			Vector3 pointTwo = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x+2, houseLoc.y+2));
-			Vector3 pointThree = Camera.main.WorldToScreenPoint (new Vector2(houseLoc.x, houseLoc.y+2));
-			//Debug.Log ("House screen coord - x: " + point.x + " y: " + point.y);
-			// draw house area.
-			if(InputManager.Instance.debug) {
-				GUI.Box (new Rect (point.x, point.y, (pointTwo.x-point.x), (pointTwo.y-point.y)), "");
-				GUI.Label (new Rect (point.x, point.y, 200, 120), ". X: " + (houseLoc.x-2) + " Y: " + (houseLoc.y-2));
-				GUI.Label (new Rect (pointTwo.x, pointTwo.y, 200, 120), ". X: " + (houseLoc.x+2) + " Y: " + (houseLoc.y+2));
-			}
-			GUI.Label (new Rect (pointThree.x, pointThree.y, 200, 120), beanName + "'s house");
-		}
+		
 	}
 
 	// Update is called once per frame
@@ -222,6 +203,7 @@ public class BeanLife : MonoBehaviour {
 				else
                     spriteRend.sprite = femaleDeadSprite;
 				gameStats.dead (isMale, this.gameObject);
+				house.ownerDied ();
 				Invoke("destroy", 10);
 				if(isMale)
 					AudioSource.PlayClipAtPoint (deathSoundMale, this.transform.position);
